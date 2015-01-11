@@ -22,6 +22,7 @@ import com.rajaraman.playerprofile.ui.adapters.PlayerListAdapter;
 import com.rajaraman.playerprofile.utils.AppUtil;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * A fragment representing a list of Items.
@@ -84,21 +85,21 @@ public class PlayerListFragment extends Fragment implements
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        AppUtil.logDebugMessage(TAG, "onResume");
+
+        getPlayerList();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         mListView = (ListView) inflater.inflate(R.layout.fragment_playerlist, container, false);
 
         mListView.setOnItemClickListener(this);
-
-        // Try getting the player list
-        // Get the country id passed as a parameter during this fragment's creation
-        int countryId = getArguments().getInt(ARG_PARAM1);
-
-        PlayerProfileApiDataProvider.getInstance().
-                            getPlayerListForCountry(getActivity(), this, countryId);
-
-        AppUtil.showProgressDialog(getActivity());
 
         return mListView;
     }
@@ -234,6 +235,16 @@ public class PlayerListFragment extends Fragment implements
 
         PlayerListAdapter playerListAdapter = new PlayerListAdapter(getActivity(),
                                                                             this.playerEntityList);
+         // Client side sorting - Keep this for reference
+//        // Sort the player list by player names in the ascending order
+//        if (null != playerListAdapter) {
+//            playerListAdapter.sort(new Comparator<PlayerEntity>() {
+//                @Override
+//                public int compare(PlayerEntity lhs, PlayerEntity rhs) {
+//                    return lhs.getName().compareTo(rhs.getName());
+//                }
+//            });
+//        }
 
         mListView.setAdapter(playerListAdapter);
     }
@@ -241,6 +252,18 @@ public class PlayerListFragment extends Fragment implements
     // Player list scrapped successfully, so try getting the player list for the country again
     private void HandleScrapePlayerListResponse(Object responseData) {
 
+        // Get the country id passed as a parameter during this fragment's creation
+        int countryId = getArguments().getInt(ARG_PARAM1);
+
+        PlayerProfileApiDataProvider.getInstance().
+                getPlayerListForCountry(getActivity(), this, countryId);
+
+        AppUtil.showProgressDialog(getActivity());
+    }
+
+    private void getPlayerList() {
+
+        // Try getting the player list
         // Get the country id passed as a parameter during this fragment's creation
         int countryId = getArguments().getInt(ARG_PARAM1);
 

@@ -10,7 +10,7 @@
     <string name="response_failed">Could not retrieve the requested data !!!</string>
     <string name="network_not_available">No network connection</string>
     <string name="quit_application">The call to the remote server has failed. The application cannot proceed further !!!</string>
-    <string name="title_activity_player_profile">PlayerProfileActivity</string>
+    <string name="title_activity_player_profile">Player Profile Activity</string>
     <string name="batting_fielding">Batting/Fielding</string>
     <string name="bowling">Bowling</string>
     <string name="name">Name</string>

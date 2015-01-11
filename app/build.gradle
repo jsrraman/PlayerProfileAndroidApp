@@ -13,6 +13,11 @@ apply plugin: 'robolectric'
 
 android {
     signingConfigs {
+        // Get the key store related values from ~/.gradle/gradle.properties.
+        // Please make sure this file and the following values are present in the
+        // user's (who is going to run the gradle command whether from Android Studio
+        // or via a Jenkins build (remember typically Jenkins build is run by "jenkins" user)
+        // home directory in unix like environments
         release {
             storeFile file(androidKeyStore)
             storePassword androidKeyStorePassword
