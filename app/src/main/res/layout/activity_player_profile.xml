@@ -1,0 +1,140 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/player_profile_ll_player_thumbnail"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/player_profile_imgview_player_thumbnail"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_launcher" />
+
+        <RelativeLayout
+            android:layout_width="290dp"
+            android:layout_height="100dp">
+
+            <TextView
+                android:id="@+id/player_profile_tv_label_name"
+                android:layout_width="75dp"
+                android:layout_height="25dp"
+                android:padding="@dimen/player_profile_table_text_padding"
+                android:text="@string/name"
+                android:textSize="@dimen/player_profile_text_size" />
+
+            <TextView
+                android:id="@+id/player_profile_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_toEndOf="@id/player_profile_tv_label_name"
+                android:layout_toRightOf="@id/player_profile_tv_label_name"
+                android:padding="@dimen/player_profile_table_text_padding"
+                android:textSize="@dimen/player_profile_text_size" />
+
+            <TextView
+                android:id="@+id/player_profile_tv_label_country"
+                android:layout_width="75dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/player_profile_tv_label_name"
+                android:padding="@dimen/player_profile_table_text_padding"
+                android:text="@string/country"
+                android:textSize="@dimen/player_profile_text_size" />
+
+            <TextView
+                android:id="@+id/player_profile_tv_country"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_below="@id/player_profile_tv_name"
+                android:layout_toEndOf="@+id/player_profile_tv_label_country"
+                android:layout_toRightOf="@+id/player_profile_tv_label_country"
+                android:padding="@dimen/player_profile_table_text_padding"
+                android:textSize="@dimen/player_profile_text_size" />
+
+            <TextView
+                android:id="@+id/player_profile_tv_label_bat_style"
+                android:layout_width="75dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/player_profile_tv_label_country"
+                android:padding="@dimen/player_profile_table_text_padding"
+                android:text="@string/bat_style"
+                android:textSize="@dimen/player_profile_text_size" />
+
+            <TextView
+                android:id="@+id/player_profile_tv_bat_style"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_below="@id/player_profile_tv_label_country"
+                android:layout_toEndOf="@+id/player_profile_tv_label_bat_style"
+                android:layout_toRightOf="@+id/player_profile_tv_label_bat_style"
+                android:padding="@dimen/player_profile_table_text_padding"
+                android:textSize="@dimen/player_profile_text_size" />
+
+            <TextView
+                android:id="@+id/player_profile_tv_label_bowl_style"
+                android:layout_width="75dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/player_profile_tv_label_bat_style"
+                android:padding="@dimen/player_profile_table_text_padding"
+                android:text="@string/bowl_style"
+                android:textSize="@dimen/player_profile_text_size" />
+
+            <TextView
+                android:id="@+id/player_profile_tv_bowl_style"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_below="@id/player_profile_tv_label_bat_style"
+                android:layout_toEndOf="@+id/player_profile_tv_label_bowl_style"
+                android:layout_toRightOf="@+id/player_profile_tv_label_bowl_style"
+                android:padding="@dimen/player_profile_table_text_padding"
+                android:textSize="@dimen/player_profile_text_size" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/player_profile_ll_avg_header"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/player_profile_ll_player_thumbnail"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <Button
+            android:id="@+id/player_profile_button_batting"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/tab_not_selected"
+            android:text="@string/batting_fielding"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <Button
+            android:id="@+id/player_profile_button_bowling"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/tab_not_selected"
+            android:text="@string/bowling"
+            android:textSize="@dimen/player_profile_text_size" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/player_profile_avg_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/player_profile_ll_avg_header"
+        tools:context="com.rajaraman.playerprofile.ui.PlayerProfileActivity"
+        tools:ignore="MergeRootFrame"></FrameLayout>
+</RelativeLayout>

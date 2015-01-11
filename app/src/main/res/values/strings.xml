@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Player Profile</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="ok">OK</string>
+    <string name="response_failed">Could not retrieve the requested data !!!</string>
+    <string name="network_not_available">No network connection</string>
+    <string name="quit_application">The call to the remote server has failed. The application cannot proceed further !!!</string>
+    <string name="title_activity_player_profile">PlayerProfileActivity</string>
+    <string name="batting_fielding">Batting/Fielding</string>
+    <string name="bowling">Bowling</string>
+    <string name="name">Name</string>
+    <string name="country">Country</string>
+    <string name="bat_style">Bat Style</string>
+    <string name="bowl_style">Bowl Style</string>
+    <string name="tests">Tests</string>
+    <string name="odis">ODIs</string>
+    <string name="matches">Mat</string>
+    <string name="runs">Runs</string>
+    <string name="highest">HS</string>
+    <string name="average">Avg</string>
+    <string name="hundred">100</string>
+    <string name="fifty">50</string>
+    <string name="wickets">Wkts</string>
+    <string name="best_match_bowling">BBM</string>
+    <string name="four_wickets_in_innings">4w</string>
+    <string name="five_wickets_in_innings">5w</string>
+    <string name="ten_wickets_in_match">10</string>
+    <string name="player">Player</string>
+</resources>

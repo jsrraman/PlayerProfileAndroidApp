@@ -1,0 +1,244 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/player_profile_tl_batfield_avg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:shrinkColumns="*"
+    android:stretchColumns="*">
+
+    <!-- Row 1 - batting and bowling headers -->
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#b0b0b0">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:text="@string/matches"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:text="@string/wickets"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:text="@string/best_match_bowling"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:text="@string/average"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:text="@string/four_wickets_in_innings"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:text="@string/five_wickets_in_innings"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:text="@string/ten_wickets_in_match"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+    </TableRow>
+
+    <!-- Row 2 - Tests - Bowling values -->
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#dcdcdc">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:text="@string/tests"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_tests_matches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_tests_wickets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_tests_bbm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_tests_avg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_tests_4w"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_tests_5w"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_tests_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+    </TableRow>
+
+    <!-- Row 3 - ODIs - Bowling values -->
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#dcdcdc">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:text="@string/odis"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_odis_matches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_odis_wickets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_odis_bbm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_odis_avg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_odis_4w"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_odis_5w"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+
+        <TextView
+            android:id="@+id/player_profile_bowl_avg_tv_odis_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/player_profile_table_text_padding"
+            android:textColor="#000"
+            android:textSize="@dimen/player_profile_text_size" />
+    </TableRow>
+</TableLayout>

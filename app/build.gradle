@@ -1,0 +1,98 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'org.robolectric:robolectric-gradle-plugin:0.14.+'
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'robolectric'
+
+android {
+    signingConfigs {
+        release {
+            storeFile file(androidKeyStore)
+            storePassword androidKeyStorePassword
+            keyAlias playerProfileAppKeyAlias
+            keyPassword playerProfileAppKeyPassword
+        }
+    }
+
+    compileSdkVersion 21
+
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.rajaraman.playerprofile"
+        minSdkVersion 15
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+
+        // Customize build names
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                // No need to rename unaligned versions of debug and release builds
+                if ( (variant.buildType.name == "debug") ||
+                        variant.buildType.name == "release") {
+                    //def date = new Date();
+                    //def formattedDate = date.format("yyyy_MM_dd")
+                    def actualOutputFile = output.outputFile
+                    def newOutputFileName = new String()
+
+                    // {app_name}-variant.buildType.name-yyyy_MM_dd format
+                    // Eg: PlayerProfile-release-2015_01_09
+                    //newOutputFileName = "PlayerProfile-" + variant.buildType.name + "-" + formattedDate + ".apk"
+                    newOutputFileName = "PlayerProfile-" + variant.buildType.name + ".apk"
+                    output.outputFile = new File(actualOutputFile.parent, newOutputFileName)
+                }
+            }
+        }
+    }
+}
+
+robolectric {
+    // configure the set of classes for JUnit tests
+    include '**/*Test.class'
+    exclude '**/espresso/**/*.class'
+
+    // configure max heap size of the test JVM
+    maxHeapSize = '2048m'
+
+    // configure the test JVM arguments
+    jvmArgs '-XX:MaxPermSize=512m', '-XX:-UseSplitVerifier'
+
+    // Specify max number of processes (default is 1)
+    maxParallelForks = 4
+
+    // Specify max number of test classes to execute in a test process
+    // before restarting the process (default is unlimited)
+    forkEvery = 150
+
+    // configure whether failing tests should fail the build
+    ignoreFailures true
+
+    // use afterTest to listen to the test execution results
+    afterTest { descriptor, result ->
+        println "Executing test for ${descriptor.name} with result: ${result.resultType}"
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.mcxiaoke.volley:library:1.0.+'
+    androidTestCompile 'org.robolectric:robolectric:2.4'
+    androidTestCompile 'junit:junit:4.10'
+}
