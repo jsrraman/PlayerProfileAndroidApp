@@ -82,7 +82,7 @@ public class SplashActivity extends Activity implements
         if (showErrorMessage) {
             // The app has failed to get a response from webservice. Show appropriate error message
             String message = getString(R.string.quit_application);
-            AppUtil.showDialog(this, message);
+            AppUtil.showErrorDialogAndQuitApp(this, message);
             return;
         }
 

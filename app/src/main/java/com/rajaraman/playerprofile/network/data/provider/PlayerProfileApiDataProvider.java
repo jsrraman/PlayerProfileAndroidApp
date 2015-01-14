@@ -25,8 +25,8 @@ public class PlayerProfileApiDataProvider extends DataProvider implements
     public static final int SCRAPE_PLAYER_PROFILE_FOR_PLAYER_ID_API = 4;
     public static final int GET_PLAYER_PROFILE_FOR_PLAYER_ID_API = 5;
 
-    //public static final String playerProfileWebServicesBaseUrl = "http://10.0.0.100:3000";
-    public static final String playerProfileWebServicesBaseUrl = "http://rajaraman.ddns.net:3000";
+    public static final String playerProfileWebServicesBaseUrl = "http://10.0.0.114:3000";
+    //public static final String playerProfileWebServicesBaseUrl = "http://rajaraman.ddns.net:3000";
     //public static final String playerProfileWebServicesBaseUrl = "https://player-profile.herokuapp.com";
     public static final String scrapeCountryList = "/scrape/countries";
     public static final String getCountryListUrl = "/players/countries";
