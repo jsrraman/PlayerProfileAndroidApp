@@ -38,5 +38,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rajaraman.playerprofile.ui.MainActivity" />
         </activity>
+
+        <activity
+            android:name=".ui.PlayerProfileAllActivity"
+            android:label="@string/title_activity_player_profile"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rajaraman.playerprofile.ui.MainActivity" />
+        </activity>
+
     </application>
 </manifest>

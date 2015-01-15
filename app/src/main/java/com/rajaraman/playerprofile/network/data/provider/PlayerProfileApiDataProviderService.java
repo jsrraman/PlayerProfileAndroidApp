@@ -82,6 +82,11 @@ public class PlayerProfileApiDataProviderService extends IntentService {
                     break;
                 }
 
+                case PlayerProfileApiDataProvider.GET_PLAYER_PROFILE_ALL_FOR_PLAYER_ID_API:{
+                    parsedResponseData = getPlayerProfileAllFromJson(jsonData);
+                    break;
+                }
+
                 case PlayerProfileApiDataProvider.SCRAPE_PLAYER_LIST_FOR_COUNTRY_ID_API: {
                     parsedResponseData = getScrapeResultFromJson(jsonData);
                     break;
@@ -122,8 +127,7 @@ public class PlayerProfileApiDataProviderService extends IntentService {
             while ((rLine = rd.readLine()) != null) {
                 jsonBuilder.append(rLine);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -152,9 +156,9 @@ public class PlayerProfileApiDataProviderService extends IntentService {
             // convert (Deserialize) JSON string to the equivalent entity object
             countryEntityList = gson.fromJson(countryListJsonString,
                     new TypeToken<ArrayList<CountryEntity>>(){}.getType());
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             return countryEntityList;
         }
     }
@@ -171,9 +175,9 @@ public class PlayerProfileApiDataProviderService extends IntentService {
             String statusVal = (String) rootJsonObj.get("status");
 
             status = statusVal.equalsIgnoreCase("success") ? true : false;
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             return status;
         }
     }
@@ -205,10 +209,33 @@ public class PlayerProfileApiDataProviderService extends IntentService {
             // conversion is different (i.e PlayerEntity type is passed and PlayerEntityList type is returned)
             // compared to other simple conversions, eg: getCountryListFromJson
             playerEntityList = gson.fromJson(jsonData, new TypeToken<PlayerEntity>(){}.getType());
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        }  finally {
                 return playerEntityList;
+        }
+    }
+
+    // Get all the player profile from json
+    // Note: This is for sharath's requirement
+    private JSONObject getPlayerProfileAllFromJson(String jsonData) {
+
+        JSONObject resJsonObject = null;
+
+        try {
+            // Get the root JSON object
+            JSONObject rootJsonObj = new JSONObject(jsonData);
+
+            // Get the status value
+            String statusVal = (String) rootJsonObj.get("status");
+
+            if (statusVal.equalsIgnoreCase("success")) {
+                resJsonObject = ((JSONArray) rootJsonObj.get("result")).getJSONObject(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return resJsonObject;
         }
     }
 }

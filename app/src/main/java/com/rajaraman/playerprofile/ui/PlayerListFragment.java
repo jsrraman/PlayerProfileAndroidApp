@@ -129,7 +129,10 @@ public class PlayerListFragment extends Fragment implements
             // fragment is attached to one) that an item has been selected.
             //mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
 
-            Intent intent = new Intent(getActivity(), PlayerProfileActivity.class);
+//            Intent intent = new Intent(getActivity(), PlayerProfileActivity.class);
+//            intent.putExtra("playerId", this.playerEntityList.get(position).getPlayerId());
+
+            Intent intent = new Intent(getActivity(), PlayerProfileAllActivity.class);
             intent.putExtra("playerId", this.playerEntityList.get(position).getPlayerId());
 
             startActivity(intent);

@@ -24,6 +24,7 @@ public class PlayerProfileApiDataProvider extends DataProvider implements
     public static final int SCRAPE_PLAYER_LIST_FOR_COUNTRY_ID_API = 3;
     public static final int SCRAPE_PLAYER_PROFILE_FOR_PLAYER_ID_API = 4;
     public static final int GET_PLAYER_PROFILE_FOR_PLAYER_ID_API = 5;
+    public static final int GET_PLAYER_PROFILE_ALL_FOR_PLAYER_ID_API = 6;
 
     public static final String playerProfileWebServicesBaseUrl = "http://10.0.0.114:3000";
     //public static final String playerProfileWebServicesBaseUrl = "http://rajaraman.ddns.net:3000";
@@ -158,6 +159,24 @@ public class PlayerProfileApiDataProvider extends DataProvider implements
 
         this.context.startService(createApiDataProviderServiceIntent(this.apiReqResData));
     }
+
+    // Scrape the player profile data for the given player id
+    public void getPlayerProfileAll(Context context,
+                                 OnDataReceivedListener onDataReceivedListener,
+                                 int playerId) {
+
+        this.context = context;
+        this.onDataReceivedListener = onDataReceivedListener;
+
+        String fullUrl = this.playerProfileWebServicesBaseUrl + this.getPlayerProfileUrl;
+        fullUrl += Integer.toString(playerId);
+
+        this.apiReqResData.setRequestWebServiceApiId(GET_PLAYER_PROFILE_ALL_FOR_PLAYER_ID_API);
+        this.apiReqResData.setRequestUrl(fullUrl);
+
+        this.context.startService(createApiDataProviderServiceIntent(this.apiReqResData));
+    }
+
     private Intent createApiDataProviderServiceIntent(ApiReqResData apiReqResData) {
         Intent i = new Intent(context, PlayerProfileApiDataProviderService.class);
         ApiDataProviderServiceReceiver receiver =
