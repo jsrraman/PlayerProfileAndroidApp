@@ -1,52 +1,40 @@
 package com.rajaraman.playerprofile.ui;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
 import com.rajaraman.playerprofile.R;
 import com.rajaraman.playerprofile.network.data.entities.PlayerEntity;
 import com.rajaraman.playerprofile.network.data.provider.PlayerProfileApiDataProvider;
-import com.rajaraman.playerprofile.network.data.provider.VolleySingleton;
 import com.rajaraman.playerprofile.utils.AppUtil;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Objects;
 
 
 public class PlayerProfileAllActivity extends FragmentActivity implements
-                 PlayerProfileApiDataProvider.OnDataReceivedListener {
+        PlayerProfileApiDataProvider.OnDataReceivedListener {
 
     private static final String TAG = PlayerProfileAllActivity.class.getCanonicalName();
 
     int playerId = 0;
-    private ArrayList<PlayerEntity> playerEntityList = null;
-    private LinearLayout parentLayout = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-       // setContentView(R.layout.activity_player_profile);
-
-        //if (savedInstanceState == null) {
-        //}
 
         prepareUi(getIntent());
     }
@@ -75,12 +63,8 @@ public class PlayerProfileAllActivity extends FragmentActivity implements
 
     // Initializes the UI
     private void prepareUi(Intent intent) {
-
         // Get the passed player id
         this.playerId = intent.getIntExtra("playerId", 0);
-
-//        // Get the player profile for the given player id
-//        PlayerProfileApiDataProvider.getInstance().getPlayerProfile(this, this, playerId);
 
         // Get the player profile for the given player id
         PlayerProfileApiDataProvider.getInstance().getPlayerProfileAll(this, this, playerId);
@@ -105,8 +89,8 @@ public class PlayerProfileAllActivity extends FragmentActivity implements
         if (false == showErrorMessage) {
             // Even though the service would have sent it as boolean, the value would be
             // autoboxed to Boolean, so it is safe to check like this
-            if ( responseData instanceof Boolean) {
-                boolean status = ((Boolean)responseData).booleanValue();
+            if (responseData instanceof Boolean) {
+                boolean status = ((Boolean) responseData).booleanValue();
                 showErrorMessage = !status; // status = true means the API had succeeded
             }
         }
@@ -129,7 +113,8 @@ public class PlayerProfileAllActivity extends FragmentActivity implements
                 break;
             }
 
-            default: break;
+            default:
+                break;
         }
     }
 
@@ -137,7 +122,7 @@ public class PlayerProfileAllActivity extends FragmentActivity implements
     private void HandleGetPlayerProfileAllResponse(Object responseData) {
 
         // Try getting the data for the country list and show the list
-        JSONObject jsonObject = (JSONObject)responseData;
+        JSONObject jsonObject = (JSONObject) responseData;
 
         if (null == jsonObject) {
             AppUtil.logDebugMessage(TAG, "JSON data is null. This is unexpected !!!");
@@ -154,11 +139,14 @@ public class PlayerProfileAllActivity extends FragmentActivity implements
 //        }
 
         try {
+            // Note the optXXXX related methods of JSONObject are nicer, if the requested field is
+            // not there, it will return the requested field type's default value (empty, null etc).
+            // No need to handle exceptions :)
             String thumbnailUrl = (String) jsonObject.optString("thumbnailUrl");
 
             // If thumbnail URL is empty for this player, first scrape the
             // player profile data and then try getting the data again.
-            if ( thumbnailUrl.isEmpty() ) {
+            if (thumbnailUrl.isEmpty()) {
                 PlayerProfileApiDataProvider.getInstance().scrapePlayerProfile(this, this, this.playerId);
                 AppUtil.showProgressDialog(this);
                 return;
@@ -174,13 +162,13 @@ public class PlayerProfileAllActivity extends FragmentActivity implements
     // Player profile scrapped successfully, so try getting the detailed player profile for the
     // given player again
     private void HandleScrapePlayerProfileResponse(Object responseData) {
-        PlayerProfileApiDataProvider.getInstance().getPlayerProfile(this, this, this.playerId);
+        PlayerProfileApiDataProvider.getInstance().getPlayerProfileAll(this, this, this.playerId);
         AppUtil.showProgressDialog(this);
     }
 
     private void constructUi(JSONObject jsonObject) {
 
-        initPlayerProfileUi();
+        LinearLayout parentContainerLayout = (LinearLayout) getParentContainerLayout();
 
         Iterator<String> iterator = jsonObject.keys();
 
@@ -190,42 +178,83 @@ public class PlayerProfileAllActivity extends FragmentActivity implements
             try {
                 Object value = jsonObject.get(key);
 
-                TextView textViewValue;
-
                 if (value instanceof String) {
-                    addTextViewToUi(key);
-                    addTextViewToUi((String)value);
+                    addNameValuePairToUiLayout(parentContainerLayout, key, (String) value);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
-        this.setContentView(this.parentLayout);
-    }
+        // Add a scroll to our layout
+        ScrollView scrollView = new ScrollView(this);
+        scrollView.addView(parentContainerLayout);
 
-    private void initPlayerProfileUi() {
+        // Set the activity content
+        setContentView(scrollView);
+   }
+
+    private ViewGroup getParentContainerLayout() {
         // Create a linear layout
-        this.parentLayout = new LinearLayout(this);
-        this.parentLayout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         // Configuring the width and height of the parent layout.
         LinearLayout.LayoutParams parentLayoutParams =
-                          new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                                                           LinearLayout.LayoutParams.MATCH_PARENT);
-        this.parentLayout.setLayoutParams(parentLayoutParams);
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+        linearLayout.setLayoutParams(parentLayoutParams);
+
+        return linearLayout;
     }
 
-    private void addTextViewToUi(String text) {
+    private void addNameValuePairToUiLayout(ViewGroup parentLayout, String key, String value) {
+
+        // Create a linear layout with horizontal orientation
+        LinearLayout containerLayout = new LinearLayout(this);
+        containerLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        // Set the textview attributes which is going to hold the key
+        containerLayout.addView(constructKeyTextView(key));
+        containerLayout.addView(constructValueTextView(value));
+
+        parentLayout.addView(containerLayout);
+    }
+
+    private TextView constructKeyTextView(String text) {
+
+        int layoutWidth = 150; // in dps
+        int layoutHeight = LayoutParams.WRAP_CONTENT;
+
+        int textViewPadding = 8; // in dps
+
+        return constructTextView(layoutWidth, layoutHeight,
+                textViewPadding, textViewPadding, textViewPadding, textViewPadding, text);
+    }
+
+    private TextView constructValueTextView(String text) {
+
+        int layoutWidth = LayoutParams.WRAP_CONTENT;
+        int layoutHeight = LayoutParams.WRAP_CONTENT;
+
+        int textViewPadding = 8; // in dps
+
+        return constructTextView(layoutWidth, layoutHeight,
+                textViewPadding, textViewPadding, textViewPadding, textViewPadding, text);
+    }
+
+    private TextView constructTextView(int layoutWidth, int layoutHeight, int paddingLeft, int paddingTop,
+                                       int paddingRight, int paddingBottom, String text) {
 
         TextView tv = new TextView(this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                                                LinearLayout.LayoutParams.MATCH_PARENT,
-                                                        LinearLayout.LayoutParams.WRAP_CONTENT);
-        tv.setLayoutParams(lp);
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(layoutWidth, layoutHeight);
+
+
+        tv.setLayoutParams(layoutParams);
+        tv.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
         tv.setText(text);
 
-        tv.setPadding(8, 8, 8, 8);
-        this.parentLayout.addView(tv);
-   }
+        return tv;
+    }
 }
