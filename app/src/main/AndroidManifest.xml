@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rajaraman.playerprofile" >
+    package="com.rajaraman.playerprofile">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,10 +11,9 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:supportsRtl="false">
-        <service android:name=".network.data.provider.PlayerProfileApiDataProviderService" >
-        </service>
+        android:supportsRtl="false"
+        android:theme="@style/AppTheme">
+        <service android:name=".network.data.provider.PlayerProfileApiDataProviderService"></service>
 
         <activity
             android:name=".ui.SplashActivity"
@@ -28,8 +27,7 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.PlayerProfileActivity"
             android:label="@string/title_activity_player_profile"
@@ -42,11 +40,12 @@
         <activity
             android:name=".ui.PlayerProfileAllActivity"
             android:label="@string/title_activity_player_profile"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rajaraman.playerprofile.ui.MainActivity" />
-        </activity>
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.PlayerProfileDynamicUiActivity"
+            android:label="@string/title_activity_player_profile"
+            android:screenOrientation="portrait"></activity>
 
     </application>
 </manifest>

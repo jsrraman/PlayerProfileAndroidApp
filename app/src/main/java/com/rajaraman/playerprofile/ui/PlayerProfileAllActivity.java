@@ -1,29 +1,16 @@
 package com.rajaraman.playerprofile.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import com.rajaraman.playerprofile.R;
-import com.rajaraman.playerprofile.network.data.entities.PlayerEntity;
 import com.rajaraman.playerprofile.network.data.provider.PlayerProfileApiDataProvider;
 import com.rajaraman.playerprofile.utils.AppUtil;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
 
 public class PlayerProfileAllActivity extends FragmentActivity implements
         PlayerProfileApiDataProvider.OnDataReceivedListener {
@@ -152,8 +139,10 @@ public class PlayerProfileAllActivity extends FragmentActivity implements
                 return;
             }
 
-            // If we have got the detailed player profile, go ahead and construct the UI
-            constructUi(jsonObject);
+            // We have got the detailed player profile, go ahead and construct the UI
+            PlayerProfileUiLayout playerProfileUiLayout = new PlayerProfileUiLayout();
+            playerProfileUiLayout.constructUi(jsonObject, this);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -164,97 +153,5 @@ public class PlayerProfileAllActivity extends FragmentActivity implements
     private void HandleScrapePlayerProfileResponse(Object responseData) {
         PlayerProfileApiDataProvider.getInstance().getPlayerProfileAll(this, this, this.playerId);
         AppUtil.showProgressDialog(this);
-    }
-
-    private void constructUi(JSONObject jsonObject) {
-
-        LinearLayout parentContainerLayout = (LinearLayout) getParentContainerLayout();
-
-        Iterator<String> iterator = jsonObject.keys();
-
-        while (iterator.hasNext()) {
-            String key = iterator.next();
-
-            try {
-                Object value = jsonObject.get(key);
-
-                if (value instanceof String) {
-                    addNameValuePairToUiLayout(parentContainerLayout, key, (String) value);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // Add a scroll to our layout
-        ScrollView scrollView = new ScrollView(this);
-        scrollView.addView(parentContainerLayout);
-
-        // Set the activity content
-        setContentView(scrollView);
-   }
-
-    private ViewGroup getParentContainerLayout() {
-        // Create a linear layout
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-
-        // Configuring the width and height of the parent layout.
-        LinearLayout.LayoutParams parentLayoutParams =
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
-        linearLayout.setLayoutParams(parentLayoutParams);
-
-        return linearLayout;
-    }
-
-    private void addNameValuePairToUiLayout(ViewGroup parentLayout, String key, String value) {
-
-        // Create a linear layout with horizontal orientation
-        LinearLayout containerLayout = new LinearLayout(this);
-        containerLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-        // Set the textview attributes which is going to hold the key
-        containerLayout.addView(constructKeyTextView(key));
-        containerLayout.addView(constructValueTextView(value));
-
-        parentLayout.addView(containerLayout);
-    }
-
-    private TextView constructKeyTextView(String text) {
-
-        int layoutWidth = 150; // in dps
-        int layoutHeight = LayoutParams.WRAP_CONTENT;
-
-        int textViewPadding = 8; // in dps
-
-        return constructTextView(layoutWidth, layoutHeight,
-                textViewPadding, textViewPadding, textViewPadding, textViewPadding, text);
-    }
-
-    private TextView constructValueTextView(String text) {
-
-        int layoutWidth = LayoutParams.WRAP_CONTENT;
-        int layoutHeight = LayoutParams.WRAP_CONTENT;
-
-        int textViewPadding = 8; // in dps
-
-        return constructTextView(layoutWidth, layoutHeight,
-                textViewPadding, textViewPadding, textViewPadding, textViewPadding, text);
-    }
-
-    private TextView constructTextView(int layoutWidth, int layoutHeight, int paddingLeft, int paddingTop,
-                                       int paddingRight, int paddingBottom, String text) {
-
-        TextView tv = new TextView(this);
-
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(layoutWidth, layoutHeight);
-
-
-        tv.setLayoutParams(layoutParams);
-        tv.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
-        tv.setText(text);
-
-        return tv;
     }
 }

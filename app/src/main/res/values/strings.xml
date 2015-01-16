@@ -31,4 +31,5 @@
     <string name="five_wickets_in_innings">5w</string>
     <string name="ten_wickets_in_match">10</string>
     <string name="player">Player</string>
+    <string name="view">view</string>
 </resources>

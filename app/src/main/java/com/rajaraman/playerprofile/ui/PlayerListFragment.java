@@ -98,7 +98,6 @@ public class PlayerListFragment extends Fragment implements
                              Bundle savedInstanceState) {
 
         mListView = (ListView) inflater.inflate(R.layout.fragment_playerlist, container, false);
-
         mListView.setOnItemClickListener(this);
 
         return mListView;
