@@ -74,6 +74,8 @@ public class SplashActivityTest {
     public void testMainActivityIsNotNull() throws Exception {
 
         assertNotNull(mainActivity);
+
+        assertTrue(false);
     }
 
 
