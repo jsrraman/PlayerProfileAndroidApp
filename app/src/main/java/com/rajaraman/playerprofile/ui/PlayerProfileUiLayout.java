@@ -87,7 +87,7 @@ public class PlayerProfileUiLayout {
 
     private TextView constructKeyTextView(String text) {
 
-        int layoutWidth = 150; // in dps
+        int layoutWidth = 160; // in dps
         int layoutHeight = LinearLayout.LayoutParams.WRAP_CONTENT;
 
         int padding = 8; // in dps
@@ -128,6 +128,7 @@ public class PlayerProfileUiLayout {
 
         textView.setLayoutParams(layoutParams);
         textView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+        textView.setTextSize(12.0f);
 
         return textView;
     }
@@ -181,6 +182,7 @@ public class PlayerProfileUiLayout {
         button.setLayoutParams(layoutParams);
         button.setPadding(padding, padding, padding, padding);
         button.setText(text);
+        button.setTextSize(12.0f);
 
         return button;
     }
