@@ -26,8 +26,19 @@ public class PlayerProfileApiDataProvider extends DataProvider implements
     public static final int GET_PLAYER_PROFILE_FOR_PLAYER_ID_API = 5;
     public static final int GET_PLAYER_PROFILE_ALL_FOR_PLAYER_ID_API = 6;
 
-    public static final String playerProfileWebServicesBaseUrl = "http://10.0.0.114:3000";
+    // Ajirasoft IP
+    //public static final String playerProfileWebServicesBaseUrl = "http://192.168.1.106:3000";
+
+    // Home IP
+    //public static final String playerProfileWebServicesBaseUrl = "http://10.0.0.115:3000";
+
+    // Stayzilla Bangalore IP
+    public static final String playerProfileWebServicesBaseUrl = "http://192.168.30.109:3000";
+
+    // Home DDNS end point
     //public static final String playerProfileWebServicesBaseUrl = "http://rajaraman.ddns.net:3000";
+
+    // Heroku end point
     //public static final String playerProfileWebServicesBaseUrl = "https://player-profile.herokuapp.com";
     public static final String scrapeCountryList = "/scrape/countries";
     public static final String getCountryListUrl = "/players/countries";
